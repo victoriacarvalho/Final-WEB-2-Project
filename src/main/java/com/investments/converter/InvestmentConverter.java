@@ -1,20 +1,13 @@
-
 package com.investments.converter;
 
 import com.investments.domain.InvestmentDomain;
 import com.investments.dtos.InvestmentDTO;
 import com.investments.model.InvestmentModel;
 import org.springframework.stereotype.Component;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
+// A classe agora é um Componente Spring, mas os métodos são estáticos para simplicidade
+// Isso evita a necessidade de injetá-la, tratando-a como uma classe utilitária.
 @Component
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 public class InvestmentConverter {
 
     public InvestmentDomain toDomain(InvestmentModel model) {

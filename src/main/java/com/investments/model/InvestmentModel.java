@@ -1,7 +1,7 @@
 package com.investments.model;
 
-import com.investments.model.InvestmentType;
-import jakarta.persistence.*; 
+import com.investments.enums.EnumInvestmentType; // Import corrigido
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,7 +20,7 @@ public class InvestmentModel {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private InvestmentType type;
+    private EnumInvestmentType type; // Tipo corrigido para usar o Enum padrão do projeto
 
     @Column(nullable = false)
     private String symbol;

@@ -1,0 +1,47 @@
+services:
+  # Serviço da API de Investimentos
+  investments-api:
+    image: openjdk:17-jdk-slim
+    container_name: investments-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: ./mvnw spring-boot:run
+    depends_on:
+      # A condição 'service_healthy' garante que a API só iniciará
+      # depois que o healthcheck do banco de dados passar.
+      postgres-db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/db_investments
+      - SPRING_DATASOURCE_USERNAME=user_investments
+      - SPRING_DATASOURCE_PASSWORD=pass_investments
+    networks:
+      - investments-network
+
+  # Serviço do Banco de Dados PostgreSQL
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: postgres-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=db_investments
+      - POSTGRES_USER=user_investments
+      - POSTGRES_PASSWORD=pass_investments
+    volumes:
+      - ./create-database.sql:/docker-entrypoint-initdb.d/init.sql
+    # HEALTHCHECK ADICIONADO AQUI
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user_investments -d db_investments"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - investments-network
+
+networks:
+  investments-network:
+    driver: bridge
