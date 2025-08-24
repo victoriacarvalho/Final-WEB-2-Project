@@ -1,6 +1,5 @@
 package com.investments.repositories;
 
-import com.investments.model.InvestmentType;
 import com.investments.enums.EnumInvestmentType;
 import com.investments.model.InvestmentModel;
 import org.springframework.data.jpa.repository.JpaRepository;

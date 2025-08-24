@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/investments")
+@CrossOrigin(origins = "http://localhost:3000") // <-- ADICIONE ESTA LINHA
 public class InvestmentController {
 
     private final InvestmentService service;
@@ -24,6 +25,7 @@ public class InvestmentController {
         this.service = service;
     }
 
+    // ... (o resto do seu código do controller permanece igual)
     @PostMapping
     public ResponseEntity<InvestmentDTO> create(@Valid @RequestBody CreateInvestmentDTO createDTO) {
         InvestmentDTO created = service.create(createDTO);

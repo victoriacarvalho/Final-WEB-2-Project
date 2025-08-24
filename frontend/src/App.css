@@ -1,42 +1,251 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+:root {
+  --background-primary: #121212;
+  --background-secondary: #1e1e1e;
+  --background-card: #2a2a2a;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --primary-color: #bb86fc;
+  --primary-hover: #a052f5;
+  --secondary-color: #03dac6;
+  --error-color: #cf6679;
+  --border-color: #444;
+  --border-radius: 8px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+}
+.App {
+  max-width: 1200px;
+  margin: 2rem auto;
   padding: 2rem;
+}
+.App-header {
   text-align: center;
+  margin-bottom: 2rem;
 }
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.App-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .card {
-  padding: 2em;
+  background-color: var(--background-card);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+}
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
 }
 
-.read-the-docs {
-  color: #888;
+/* Botões */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #000;
+  font-weight: bold;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+.btn-secondary {
+  background-color: #444;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-secondary:hover {
+  background-color: #555;
+}
+.delete-btn {
+  background-color: var(--error-color);
+  color: #000;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+.delete-btn:hover {
+  opacity: 0.8;
+}
+
+/* Resumo */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+.summary-card {
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  text-align: center;
+}
+.summary-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.summary-card p {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin: 0;
+}
+.summary-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  text-align: left;
+}
+.summary-card li {
+  color: var(--text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+/* Lista e Filtros */
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.list-header .actions {
+  display: flex;
+  gap: 1rem;
+}
+.list-header select {
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+/* Tabela */
+.table-wrapper {
+  overflow-x: auto;
+}
+.investments-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+.investments-table th,
+.investments-table td {
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+.investments-table th {
+  background-color: var(--background-secondary);
+  font-weight: 600;
+}
+.investments-table tr:hover {
+  background-color: #333;
+}
+.actions-cell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal-content {
+  background-color: var(--background-card);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+}
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+/* Formulário no Modal */
+.investment-form h2 {
+  margin-top: 0;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.form-grid input,
+.form-grid select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+/* Mensagens */
+.error-message {
+  color: var(--error-color);
+  margin-top: 1rem;
+}
+.loading-message {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-secondary);
 }
