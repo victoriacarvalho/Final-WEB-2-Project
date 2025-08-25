@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import InvestmentForm from "./components/InvestmentForm";
+import ListInvestments from "./components/ListInvestments";
 import Modal from "./components/Modal";
 import {
   getInvestments,
@@ -39,7 +40,7 @@ function App() {
       setError(null);
     } catch (err) {
       setError(
-        "Falha ao buscar dados da API. Verifique se o backend está a correr."
+        "Falha ao buscar dados da API.  Verifique o console para mais detalhes."
       );
       console.error(err);
     } finally {
@@ -47,6 +48,7 @@ function App() {
     }
   }, [filterType]);
 
+  // Busca os dados quando o componente monta ou o filtro muda
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -60,9 +62,10 @@ function App() {
       }
       setIsModalOpen(false);
       setEditingInvestment(null);
-      fetchData(); // Recarrega todos os dados
+      fetchData();
     } catch (err) {
-      alert(`Erro ao salvar o ativo: ${err}`);
+      alert(`Erro ao salvar o ativo: Verifique o console para mais detalhes.`);
+      console.error(err);
     }
   };
 
@@ -70,9 +73,12 @@ function App() {
     if (window.confirm("Tem a certeza que deseja remover este ativo?")) {
       try {
         await deleteInvestment(id);
-        fetchData(); // Recarrega todos os dados
+        fetchData();
       } catch (err) {
-        alert(`Erro ao remover o ativo: ${err}`);
+        alert(
+          `Erro ao remover o ativo: Verifique o console para mais detalhes.`
+        );
+        console.error(err);
       }
     }
   };
@@ -94,108 +100,17 @@ function App() {
       </header>
 
       <main className="container">
-        {/* RESUMO */}
-        <section className="card">
-          <h2>Resumo da Carteira</h2>
-          {loading && <p>A carregar resumo...</p>}
-          {summary && !loading && (
-            <div className="summary-grid">
-              <div className="summary-card">
-                <h4>Total Investido</h4>
-                <p>R$ {summary.totalInvested.toFixed(2)}</p>
-              </div>
-              <div className="summary-card">
-                <h4>Total de Ativos</h4>
-                <p>{summary.assetCount}</p>
-              </div>
-              <div className="summary-card">
-                <h4>Total por Tipo</h4>
-                <ul>
-                  {Object.entries(summary.totalByType).map(([type, total]) => (
-                    <li key={type}>
-                      {type}: R$ {total.toFixed(2)}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
-        </section>
-
-        {/* LISTA DE ATIVOS */}
-        <section className="card">
-          <div className="list-header">
-            <h2>Meus Ativos</h2>
-            <div className="actions">
-              <select
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}>
-                <option value="">Todos os Tipos</option>
-                {investmentTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-              <button className="btn-primary" onClick={openCreateModal}>
-                Adicionar Ativo
-              </button>
-            </div>
-          </div>
-
-          {loading && <p>A carregar ativos...</p>}
-          {error && <p className="error-message">{error}</p>}
-
-          {!loading && !error && (
-            <div className="table-wrapper">
-              <table className="investments-table">
-                <thead>
-                  <tr>
-                    <th>Símbolo</th>
-                    <th>Tipo</th>
-                    <th>Quantidade</th>
-                    <th>Preço de Compra</th>
-                    <th>Data</th>
-                    <th>Total</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {investments.length > 0 ? (
-                    investments.map((inv) => (
-                      <tr key={inv.id}>
-                        <td>{inv.symbol}</td>
-                        <td>{inv.type}</td>
-                        <td>{inv.quantity}</td>
-                        <td>R$ {inv.purchasePrice.toFixed(2)}</td>
-                        <td>
-                          {new Date(inv.purchaseDate).toLocaleDateString()}
-                        </td>
-                        <td>R$ {inv.totalInvested.toFixed(2)}</td>
-                        <td className="actions-cell">
-                          <button
-                            className="btn-secondary"
-                            onClick={() => openEditModal(inv)}>
-                            Editar
-                          </button>
-                          <button
-                            className="delete-btn"
-                            onClick={() => handleDeleteInvestment(inv.id)}>
-                            Remover
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={7}>Nenhum ativo encontrado.</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
+        <ListInvestments
+          summary={summary}
+          investments={investments}
+          loading={loading}
+          error={error}
+          filterType={filterType}
+          onFilterChange={setFilterType}
+          onAddClick={openCreateModal}
+          onEditClick={openEditModal}
+          onDeleteClick={handleDeleteInvestment}
+        />
       </main>
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>

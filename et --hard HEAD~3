@@ -1,0 +1,29 @@
+[33mcommit 32446c972cfb400f7cbd6d2af7cacccffd359303[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: victoriacarvalho <victoriacostasilvac@gmail.com>
+Date:   Sun Aug 24 11:08:43 2025 -0300
+
+    fix: remove comments controller
+
+[33mcommit 4755654380538ef94f35aac5a043312161c79dc8[m
+Author: victoriacarvalho <victoriacostasilvac@gmail.com>
+Date:   Sun Aug 24 11:06:00 2025 -0300
+
+    fix: correcting data display
+
+[33mcommit 087b3430a1c1e6fb7ee1e03afad89f0e33b2c595[m
+Author: victoriacarvalho <victoriacostasilvac@gmail.com>
+Date:   Sat Aug 23 20:07:10 2025 -0300
+
+    feat: add interface
+
+[33mcommit 49955637724698ab86516134e8fd4d4cd7d7ede3[m
+Author: victoriacarvalho <victoriacostasilvac@gmail.com>
+Date:   Sat Aug 23 20:06:55 2025 -0300
+
+    fix: refatoring docker-compose, models, converter, services, properties and aplication
+
+[33mcommit f1580b120dfedb0b7879a4e70884032b904ef388[m
+Author: victoriacarvalho <victoriacostasilvac@gmail.com>
+Date:   Sat Aug 23 19:36:46 2025 -0300
+
+    first commit

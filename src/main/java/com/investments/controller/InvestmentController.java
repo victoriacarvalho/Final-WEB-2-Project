@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/investments")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000") 
 public class InvestmentController {
 
     private final InvestmentService service;
@@ -24,7 +24,6 @@ public class InvestmentController {
     public InvestmentController(InvestmentService service) {
         this.service = service;
     }
-
     
     @PostMapping
     public ResponseEntity<InvestmentDTO> create(@Valid @RequestBody CreateInvestmentDTO createDTO) {
