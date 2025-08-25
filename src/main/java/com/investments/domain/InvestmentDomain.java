@@ -2,6 +2,8 @@
 package com.investments.domain;
 
 import com.investments.enums.EnumInvestmentType;
+import com.investments.model.InvestmentType;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +28,9 @@ public class InvestmentDomain {
         }
         return purchasePrice.multiply(BigDecimal.valueOf(quantity));
     }
+
+	public InvestmentDomain(Integer id2, InvestmentType type2, String symbol2, Integer quantity2,
+			BigDecimal purchasePrice2, LocalDate purchaseDate2) {
+		//TODO Auto-generated constructor stub
+	}
 }

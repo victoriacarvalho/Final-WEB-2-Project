@@ -16,7 +16,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/investments")
+<<<<<<< HEAD
 @CrossOrigin(origins = "http://localhost:3000") 
+=======
+@CrossOrigin(origins = "http://localhost:3000") // <-- ADICIONE ESTA LINHA
+>>>>>>> parent of 32446c9 (fix: remove comments controller)
 public class InvestmentController {
 
     private final InvestmentService service;
@@ -24,7 +28,12 @@ public class InvestmentController {
     public InvestmentController(InvestmentService service) {
         this.service = service;
     }
+<<<<<<< HEAD
     
+=======
+
+    // ... (o resto do seu código do controller permanece igual)
+>>>>>>> parent of 32446c9 (fix: remove comments controller)
     @PostMapping
     public ResponseEntity<InvestmentDTO> create(@Valid @RequestBody CreateInvestmentDTO createDTO) {
         InvestmentDTO created = service.create(createDTO);

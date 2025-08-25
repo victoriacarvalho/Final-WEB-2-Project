@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Component
 @AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
 public class InvestmentConverter {
@@ -43,7 +43,6 @@ public class InvestmentConverter {
     public InvestmentModel toModel(InvestmentDomain domain) {
         InvestmentModel model = new InvestmentModel();
         model.setId(domain.getId());
-        model.setType(domain.getType());
         model.setSymbol(domain.getSymbol());
         model.setQuantity(domain.getQuantity());
         model.setPurchasePrice(domain.getPurchasePrice());
