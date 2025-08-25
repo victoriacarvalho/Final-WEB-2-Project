@@ -1,0 +1,39 @@
+# Arquivo docker-compose simplificado e corrigido
+
+services:
+  investments-service:
+    image: openjdk:17
+    container_name: investments-service
+    ports:
+      - "8080:8080"
+    expose:
+      - "8080"
+    volumes:
+      # CORREÇÃO: Mapeia o diretório atual (onde o docker-compose é executado) para /app
+      - .:/app
+    working_dir: /app
+    command: ./mvnw spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008"
+    depends_on:
+      - postgres-investments
+    networks:
+      - app-network
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-investments:5432/db_investments
+
+  postgres-investments:
+    image: postgres
+    container_name: postgres-investments
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_DB=db_investments
+      - POSTGRES_USER=user_investments
+      - POSTGRES_PASSWORD=pass_investments
+    volumes:
+      - ./create-database-investments.sql:/docker-entrypoint-initdb.d/create-database-investments.sql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
