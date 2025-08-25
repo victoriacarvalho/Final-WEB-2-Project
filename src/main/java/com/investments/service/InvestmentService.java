@@ -1,5 +1,5 @@
-package com.investments.service;
 
+package com.investments.service;
 import com.investments.converter.InvestmentConverter;
 import com.investments.domain.InvestmentDomain;
 import com.investments.dtos.CreateInvestmentDTO;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class InvestmentService {
 
     private final IInvestmentRepository repository;
-    private final InvestmentConverter converter; // Injetando o conversor
+    private final InvestmentConverter converter;
 
     public InvestmentService(IInvestmentRepository repository, InvestmentConverter converter) {
         this.repository = repository;
@@ -36,7 +36,12 @@ public class InvestmentService {
     }
 
     public List<InvestmentDTO> listAll(EnumInvestmentType type) {
-        List<InvestmentModel> models = (type != null) ? repository.findByType(type) : repository.findAll();
+        List<InvestmentModel> models;
+        if (type != null) {
+            models = repository.findByType(type);
+        } else {
+            models = repository.findAll();
+        }
         return models.stream()
                 .map(converter::toDomain)
                 .map(converter::toDTO)

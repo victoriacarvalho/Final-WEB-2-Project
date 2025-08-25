@@ -5,18 +5,20 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.5</version>
-        <relativePath/>
+        <version>3.2.5</version> <!-- Use a versão do seu projeto pai -->
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com</groupId>
+    <groupId>br.edu.ufop.web</groupId>
     <artifactId>investments</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>investments</name>
-    <description>API de Gerenciamento de Carteira de Investimentos</description>
+    <description>Microservice for investment portfolio management</description>
     <properties>
         <java.version>17</java.version>
+        <spring-cloud.version>2023.0.1</spring-cloud.version>
     </properties>
     <dependencies>
+<<<<<<< HEAD
         <!-- Spring Web para criar APIs RESTful -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -24,25 +26,42 @@
         </dependency>
 
         <!-- Spring Data JPA para persistência de dados -->
+=======
+>>>>>>> parent of 4995563 (fix: refatoring docker-compose, models, converter, services, properties and aplication)
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+<<<<<<< HEAD
 
         <!-- Validação de DTOs -->
+=======
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+>>>>>>> parent of 4995563 (fix: refatoring docker-compose, models, converter, services, properties and aplication)
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+<<<<<<< HEAD
 
         <!-- DEPENDÊNCIA DO SPRING SECURITY FOI REMOVIDA -->
 
         <!-- Driver do PostgreSQL -->
+=======
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+>>>>>>> parent of 4995563 (fix: refatoring docker-compose, models, converter, services, properties and aplication)
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
+<<<<<<< HEAD
 
         <!-- Lombok para reduzir código boilerplate -->
         <dependency>
@@ -52,26 +71,33 @@
         </dependency>
 
         <!-- Dependências de Teste -->
+=======
+>>>>>>> parent of 4995563 (fix: refatoring docker-compose, models, converter, services, properties and aplication)
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
