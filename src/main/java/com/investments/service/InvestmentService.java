@@ -1,5 +1,5 @@
-
 package com.investments.service;
+
 import com.investments.converter.InvestmentConverter;
 import com.investments.domain.InvestmentDomain;
 import com.investments.dtos.CreateInvestmentDTO;
@@ -22,14 +22,24 @@ public class InvestmentService {
 
     private final IInvestmentRepository repository;
     private final InvestmentConverter converter;
+    private final MarketDataService marketDataService;
 
-    public InvestmentService(IInvestmentRepository repository, InvestmentConverter converter) {
+    public InvestmentService(IInvestmentRepository repository, InvestmentConverter converter, MarketDataService marketDataService) {
         this.repository = repository;
         this.converter = converter;
+        this.marketDataService = marketDataService;
     }
 
     public InvestmentDTO create(CreateInvestmentDTO createDTO) {
-        InvestmentDomain domain = new InvestmentDomain(null, createDTO.type(), createDTO.symbol(), createDTO.quantity(), createDTO.purchasePrice(), createDTO.purchaseDate());
+        InvestmentDomain domain = new InvestmentDomain(
+                null,
+                createDTO.type(), 
+                createDTO.symbol(),
+                createDTO.quantity(),
+                createDTO.purchasePrice(),
+                createDTO.purchaseDate(),
+                createDTO.purchasePrice() 
+        );
         InvestmentModel model = converter.toModel(domain);
         InvestmentModel savedModel = repository.save(model);
         return converter.toDTO(converter.toDomain(savedModel));
@@ -91,6 +101,10 @@ public class InvestmentService {
                 ));
 
         return new PortfolioSummaryDTO(totalInvested, totalByType, domains.size());
+    }
+    
+    public void simulateMarketUpdate() {
+        marketDataService.updateMarketPrices();
     }
 
     private InvestmentModel findModelById(Integer id) {

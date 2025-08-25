@@ -1,5 +1,3 @@
-# Arquivo docker-compose simplificado e corrigido
-
 services:
   investments-service:
     image: openjdk:17

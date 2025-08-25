@@ -1,11 +1,8 @@
 import axios from "axios";
 
-// URL base da sua API que está a correr no Docker
 const apiClient = axios.create({
-  baseURL: "http://localhost:8080", // A porta do seu backend
+  baseURL: "http://localhost:8083",
 });
-
-// --- TIPOS DE DADOS ---
 
 export interface Investment {
   id: number;
@@ -17,8 +14,12 @@ export interface Investment {
   totalInvested: number;
 }
 
-// Usado para criar ou atualizar um ativo
 export type InvestmentData = Omit<Investment, "id" | "totalInvested">;
+
+export interface UpdateInvestmentData {
+  quantity: number;
+  purchasePrice: number;
+}
 
 export interface Summary {
   totalInvested: number;
@@ -26,22 +27,17 @@ export interface Summary {
   assetCount: number;
 }
 
-// --- FUNÇÕES DA API ---
-
-// Busca todos os investimentos, com filtro opcional por tipo
 export const getInvestments = async (type?: string): Promise<Investment[]> => {
   const params = type ? { type } : {};
   const response = await apiClient.get("/investments", { params });
   return response.data;
 };
 
-// Busca o resumo da carteira
 export const getSummary = async (): Promise<Summary> => {
   const response = await apiClient.get("/investments/summary");
   return response.data;
 };
 
-// Cria um novo investimento
 export const createInvestment = async (
   data: InvestmentData
 ): Promise<Investment> => {
@@ -49,16 +45,14 @@ export const createInvestment = async (
   return response.data;
 };
 
-// Atualiza um investimento existente
 export const updateInvestment = async (
   id: number,
-  data: Partial<InvestmentData>
+  data: UpdateInvestmentData
 ): Promise<Investment> => {
   const response = await apiClient.put(`/investments/${id}`, data);
   return response.data;
 };
 
-// Deleta um investimento
 export const deleteInvestment = async (id: number): Promise<void> => {
   await apiClient.delete(`/investments/${id}`);
 };

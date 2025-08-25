@@ -12,9 +12,8 @@ import {
   type Investment,
   type Summary,
   type InvestmentData,
+  type UpdateInvestmentData, // Importar o novo tipo
 } from "./services/api";
-
-const investmentTypes = ["ACAO", "CRIPTO", "FUNDO", "RENDA_FIXA", "OUTRO"];
 
 function App() {
   const [investments, setInvestments] = useState<Investment[]>([]);
@@ -40,7 +39,7 @@ function App() {
       setError(null);
     } catch (err) {
       setError(
-        "Falha ao buscar dados da API.  Verifique o console para mais detalhes."
+        "Falha ao buscar dados da API. Verifique o console para mais detalhes."
       );
       console.error(err);
     } finally {
@@ -48,7 +47,6 @@ function App() {
     }
   }, [filterType]);
 
-  // Busca os dados quando o componente monta ou o filtro muda
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -56,7 +54,11 @@ function App() {
   const handleSaveInvestment = async (data: InvestmentData, id?: number) => {
     try {
       if (id) {
-        await updateInvestment(id, data);
+        const updateData: UpdateInvestmentData = {
+          quantity: data.quantity,
+          purchasePrice: data.purchasePrice,
+        };
+        await updateInvestment(id, updateData);
       } else {
         await createInvestment(data);
       }
@@ -64,7 +66,8 @@ function App() {
       setEditingInvestment(null);
       fetchData();
     } catch (err) {
-      alert(`Erro ao salvar o ativo: Verifique o console para mais detalhes.`);
+      const errorDetails = err.response?.data?.message || err.message;
+      alert(`Erro ao salvar o ativo: ${errorDetails}`);
       console.error(err);
     }
   };

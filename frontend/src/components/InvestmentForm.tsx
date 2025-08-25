@@ -25,11 +25,16 @@ const InvestmentForm: React.FC<InvestmentFormProps> = ({
 
   useEffect(() => {
     if (investmentToEdit) {
+      // Garante que a data é tratada como string antes de usar .split()
+      const formattedDate = investmentToEdit.purchaseDate
+        ? String(investmentToEdit.purchaseDate).split("T")[0]
+        : "";
+
       setFormData({
         symbol: investmentToEdit.symbol,
         quantity: investmentToEdit.quantity,
         purchasePrice: investmentToEdit.purchasePrice,
-        purchaseDate: investmentToEdit.purchaseDate.split("T")[0], // Formato YYYY-MM-DD
+        purchaseDate: formattedDate,
         type: investmentToEdit.type,
       });
     }

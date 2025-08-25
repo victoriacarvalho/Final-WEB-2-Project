@@ -3,7 +3,7 @@ package com.investments.dtos;
 import com.investments.enums.EnumInvestmentType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+// A importação @PastOrPresent foi removida
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
@@ -14,6 +14,6 @@ public record CreateInvestmentDTO(
         @NotBlank String symbol,
         @NotNull @Positive Integer quantity,
         @NotNull @Positive BigDecimal purchasePrice,
-        @NotNull @PastOrPresent LocalDate purchaseDate
+        @NotNull LocalDate purchaseDate
 ) {
 }
