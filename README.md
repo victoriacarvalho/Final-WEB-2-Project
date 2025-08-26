@@ -1,5 +1,5 @@
 Gestor de Carteira de Investimentos
-Uma aplicação full-stack para gestão de um portfólio de investimentos. O sistema permite o registo de ativos (ações, cripto, etc.), calcula o resumo da carteira e simula variações de mercado para exibir o lucro/prejuízo de cada ativo.
+Uma aplicação full-stack para gestão de um portfólio de investimentos. O sistema permite o registo de ativos (ações, cripto, etc.), calcula o resumo da carteira .
 A API é construída com Java/Spring Boot e a interface é uma SPA em React/TypeScript, com o ambiente totalmente containerizado em Docker.
 Tecnologias Principais
  * Backend: Java 17, Spring Boot 3, Spring Data JPA, PostgreSQL
